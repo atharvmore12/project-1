@@ -1,0 +1,57 @@
+# ┌──────────────────────────────────────────────────────┐
+# │           XBOW-LITE Configuration File               │
+# │     Customize targets, tools, models & behavior       │
+# └──────────────────────────────────────────────────────┘
+
+# 🔗 Default target to scan (can be overridden via CLI --target)
+target: "https://testphp.vulnweb.com"
+
+# 🔄 Automatically repeat full cycle after completion?
+auto_repeat: false
+
+# 🤖 AI Model to use for vulnerability reasoning
+# Supported: "llama3", "mistral", "zephyr", or cloud models via API
+llm_model: "llama3"
+
+# ⚙️ Tool paths (update if installed in custom locations)
+tools:
+  gau: "gau"                    # github.com/lc/gau
+  katana: "katana"              # github.com/projectdiscovery/katana
+  sqlmap: "sqlmap"              # github.com/sqlmapproject/sqlmap
+  dalfox: "dalfox"              # github.com/hahwul/dalfox
+  ffuf: "ffuf"                  # github.com/ffuf/ffuf
+  nuclei: "nuclei"              # github.com/projectdiscovery/nuclei
+
+# 📁 Output directory for all scans, results, and reports
+output_dir: "./data"
+
+# 🕒 Delay between auto-repeats (in seconds) — if auto_repeat=true
+repeat_interval: 86400        # 24 hours
+
+# 🎯 Scope control — ignore URLs matching these patterns
+ignore_patterns:
+  - "/admin"
+  - "/wp-admin"
+  - "/static/"
+  - ".css"
+  - ".js"
+  - ".png"
+  - ".jpg"
+
+# 🧠 Advanced LLM settings (optional)
+llm:
+  temperature: 0.3            # Lower = more deterministic
+  max_tokens: 512             # Limit response length
+  timeout: 60                 # LLM request timeout in seconds
+
+# 📊 Reporting options
+report:
+  format: "markdown"          # markdown, json, html (future)
+  include_proof: true         # Include exploit output snippets
+  redact_sensitive: true      # Hide tokens/keys in report
+
+# 📤 Notifications (future integrations)
+notify:
+  slack_webhook: ""           # Add your webhook to enable
+  discord_webhook: ""         # Add your webhook to enable
+  email_smtp: ""              # SMTP server for email alerts
